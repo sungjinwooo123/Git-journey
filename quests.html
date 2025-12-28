@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>System Quest Board</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3713ec",
+                        "primary-glow": "#4d2df5",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#131022",
+                        "card-dark": "#1e1b2e",
+                        "border-dark": "#2b2839",
+                        "system-red": "#ff3b30",
+                        "system-gold": "#ffd700",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        "glow": "0 0 15px rgba(55, 19, 236, 0.5)",
+                        "glow-sm": "0 0 8px rgba(55, 19, 236, 0.4)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #131022;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2b2839;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3713ec;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white min-h-screen flex flex-col overflow-x-hidden selection:bg-primary selection:text-white">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-dark bg-[#131022]/90 backdrop-blur-md sticky top-0 z-50 px-6 py-4 lg:px-40">
+<div class="flex items-center gap-4 text-white">
+<div class="size-6 text-primary animate-pulse">
+<span class="material-symbols-outlined">dataset</span>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-wider">SYSTEM</h2>
+</div>
+<!-- Desktop Menu -->
+<div class="hidden lg:flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-white hover:text-primary transition-colors text-sm font-bold uppercase tracking-wider" href="profile.html">Status</a>
+<a class="text-white hover:text-primary transition-colors text-sm font-bold uppercase tracking-wider" href="inventory.html">Inventory</a>
+<a class="text-white hover:text-primary transition-colors text-sm font-bold uppercase tracking-wider" href="#">Skills</a>
+<a class="text-white hover:text-primary transition-colors text-sm font-bold uppercase tracking-wider" href="#">Shop</a>
+<a class="text-primary text-sm font-bold uppercase tracking-wider drop-shadow-[0_0_8px_rgba(55,19,236,0.8)]" href="quests.html">Quests</a>
+</div>
+<button class="flex items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary/10 border border-primary text-primary hover:bg-primary hover:text-white hover:shadow-glow transition-all duration-300 text-sm font-bold uppercase tracking-wider">
+<span class="truncate">Settings</span>
+</button>
+<div class="relative group cursor-pointer">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/50 group-hover:border-primary transition-colors" data-alt="Avatar of the user styled as a shadowy figure" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBvfDVK63tYijRpHWTo2EZD1LLk2P7ipXRUDYPTX3Fs8DJK8dsskDlYc0i9aI56BVtJ-BT-dvhpOuj9UAJC7WG0KNxTqg2v0NuXwthZb8VEVXz0BiuWG0cfSA_lX-7fvt2pX10fkc8tczcHkhr1BKuNsRv28AEsMKXp8YaVZvVCeSQ2kxfshyPA_WenjrEJvnhlnxFaQnU5a8Hg845f_WUZ2ss452f9axp9fkNIYTcwtQiXZ0ZjnIdcTleOvEsMxAwq1vzhNdANTA");'></div>
+<div class="absolute bottom-0 right-0 size-3 bg-green-500 rounded-full border-2 border-[#131022]"></div>
+</div>
+</div>
+<!-- Mobile Menu Icon -->
+<div class="lg:hidden text-white">
+<span class="material-symbols-outlined">menu</span>
+</div>
+</header>
+<div class="layout-container flex h-full grow flex-col px-4 lg:px-40 pb-20">
+<div class="flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[1024px] flex-1 w-full">
+<!-- Profile Stats Row -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-6">
+<!-- Level -->
+<div class="flex flex-col gap-1 rounded-xl border border-border-dark bg-card-dark p-4 items-center text-center shadow-lg relative overflow-hidden group hover:border-primary/50 transition-colors">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
+<p class="text-white tracking-widest text-3xl font-bold leading-tight drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">24</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#a19db9] text-base">award_star</span>
+<p class="text-[#a19db9] text-xs font-bold tracking-widest uppercase">Level</p>
+</div>
+</div>
+<!-- Job Class -->
+<div class="col-span-2 md:col-span-2 flex flex-col gap-1 rounded-xl border border-border-dark bg-card-dark p-4 items-center justify-center text-center shadow-lg group hover:border-primary/50 transition-colors">
+<p class="text-primary-glow tracking-widest text-xl md:text-2xl font-bold leading-tight uppercase drop-shadow-[0_0_5px_rgba(55,19,236,0.6)]">Shadow Monarch</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#a19db9] text-base">person</span>
+<p class="text-[#a19db9] text-xs font-bold tracking-widest uppercase">Job Class</p>
+</div>
+</div>
+<!-- Gold -->
+<div class="flex flex-col gap-1 rounded-xl border border-border-dark bg-card-dark p-4 items-center text-center shadow-lg group hover:border-primary/50 transition-colors">
+<p class="text-system-gold tracking-widest text-2xl font-bold leading-tight">1,020</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#a19db9] text-base">monetization_on</span>
+<p class="text-[#a19db9] text-xs font-bold tracking-widest uppercase">Gold</p>
+</div>
+</div>
+</div>
+<!-- XP Progress Bar -->
+<div class="flex flex-col gap-2 p-1 mb-8">
+<div class="flex gap-6 justify-between items-end">
+<p class="text-white text-sm font-bold uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">auto_graph</span> EXP Required for Level 25
+                        </p>
+<p class="text-primary text-sm font-bold">75.7%</p>
+</div>
+<div class="rounded-full bg-[#2b2839] h-3 shadow-inner relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent to-white/5 z-10"></div>
+<div class="h-full rounded-full bg-primary shadow-[0_0_10px_#3713ec]" style="width: 75%;"></div>
+</div>
+<p class="text-[#a19db9] text-xs font-mono text-right mt-1">2,500 / 3,300</p>
+</div>
+<!-- Navigation Tabs -->
+<div class="pb-6">
+<div class="flex overflow-x-auto border-b border-border-dark gap-8 no-scrollbar">
+<button class="group flex flex-col items-center justify-center border-b-2 border-primary text-white pb-3 pt-2 min-w-[120px] transition-all hover:bg-white/5 rounded-t-lg">
+<span class="material-symbols-outlined mb-1 group-hover:text-primary transition-colors">calendar_today</span>
+<p class="text-white text-sm font-bold uppercase tracking-wider">Daily</p>
+</button>
+<button class="group flex flex-col items-center justify-center border-b-2 border-transparent text-[#a19db9] hover:text-white pb-3 pt-2 min-w-[120px] transition-all hover:bg-white/5 rounded-t-lg">
+<span class="material-symbols-outlined mb-1">date_range</span>
+<p class="text-inherit text-sm font-bold uppercase tracking-wider">Weekly</p>
+</button>
+<button class="group flex flex-col items-center justify-center border-b-2 border-transparent text-[#a19db9] hover:text-white pb-3 pt-2 min-w-[120px] transition-all hover:bg-white/5 rounded-t-lg">
+<span class="material-symbols-outlined mb-1 text-purple-400">visibility_off</span>
+<p class="text-inherit text-sm font-bold uppercase tracking-wider">Hidden</p>
+</button>
+<button class="group flex flex-col items-center justify-center border-b-2 border-transparent text-[#a19db9] hover:text-system-red pb-3 pt-2 min-w-[120px] transition-all hover:bg-system-red/5 rounded-t-lg ml-auto">
+<span class="material-symbols-outlined mb-1">warning</span>
+<p class="text-inherit text-sm font-bold uppercase tracking-wider">Penalty</p>
+</button>
+</div>
+</div>
+<!-- Hero Section: Daily Quest -->
+<div class="@container mb-10">
+<div class="relative flex flex-col md:flex-row gap-6 p-6 md:p-8 rounded-xl border border-primary/50 bg-[#0f0c1d] shadow-glow-sm overflow-hidden">
+<!-- Background glow effect -->
+<div class="absolute top-[-50%] left-[-20%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="w-full md:w-1/3 shrink-0 relative rounded-lg overflow-hidden h-64 md:h-auto border border-border-dark">
+<div class="absolute top-3 left-3 bg-system-red/90 text-white text-xs font-bold px-3 py-1 rounded backdrop-blur-sm z-10 border border-red-500 shadow-lg">INCOMPLETE</div>
+<div class="w-full h-full bg-center bg-no-repeat bg-cover transform hover:scale-105 transition-transform duration-700" data-alt="Dark silhouette of a person doing pushups with blue aura" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAHxghNHQf1Dj6d-q7ZkZuW8ULGkSxkrogQ4K68bXM4AyLTLZu-ZoiGcqo0T7HKGUM6ER38dVnupFm3MLCOj3TBpUbyLcX6WMgo8_ElcIYHXQr5cVg4x5A-J228AwPwke_lxtXTRKk-9P2_g-P4Xo3VTjmk350cE-yn51IKpkLJ8jk0bWjcgIpIQTgPpZIiBatAkpWSCFWrsC0Lu1SRR1SlxQHbClAmELh7bcEjtPOQFkaoYVoQYTEEv3vmfPGBrhl-z1BX72jn2Q");'>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0f0c1d] to-transparent opacity-80"></div>
+</div>
+<div class="absolute bottom-4 left-4 right-4">
+<div class="flex justify-between text-xs text-gray-300 font-mono mb-1">
+<span>Time Remaining</span>
+<span class="text-red-400 animate-pulse">04:23:11</span>
+</div>
+<div class="w-full bg-gray-800 rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 20%"></div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-6 justify-between flex-1 relative z-10">
+<div class="flex flex-col gap-3 text-left">
+<div class="flex items-center gap-3">
+<span class="px-2 py-0.5 rounded border border-primary text-primary text-xs font-bold uppercase bg-primary/10">Daily Quest</span>
+<span class="text-[#a19db9] text-xs font-mono tracking-widest">[ID: DQ-001]</span>
+</div>
+<h1 class="text-white text-3xl md:text-4xl font-black leading-tight tracking-tight uppercase shadow-black drop-shadow-lg">
+                                    Strength Training
+                                </h1>
+<p class="text-[#a19db9] text-sm md:text-base font-normal leading-relaxed border-l-2 border-primary/50 pl-4 py-1 bg-white/5 rounded-r">
+                                    Goal: 100 Push-ups, 100 Sit-ups, 100 Squats, 10km Run. <br/>
+<span class="text-system-red text-xs font-bold uppercase mt-1 block">Warning: Failure to complete will result in a penalty.</span>
+</p>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-[#1e1b2e] border border-border-dark p-2 rounded flex flex-col items-center justify-center">
+<span class="text-xs text-gray-400 mb-1">Push-ups</span>
+<span class="text-lg font-bold text-white">50/100</span>
+</div>
+<div class="bg-[#1e1b2e] border border-border-dark p-2 rounded flex flex-col items-center justify-center">
+<span class="text-xs text-gray-400 mb-1">Sit-ups</span>
+<span class="text-lg font-bold text-white">100/100</span>
+<span class="material-symbols-outlined text-green-500 text-xs absolute top-1 right-1">check_circle</span>
+</div>
+<div class="bg-[#1e1b2e] border border-border-dark p-2 rounded flex flex-col items-center justify-center">
+<span class="text-xs text-gray-400 mb-1">Squats</span>
+<span class="text-lg font-bold text-white">25/100</span>
+</div>
+<div class="bg-[#1e1b2e] border border-border-dark p-2 rounded flex flex-col items-center justify-center">
+<span class="text-xs text-gray-400 mb-1">Run (km)</span>
+<span class="text-lg font-bold text-white">3/10</span>
+</div>
+</div>
+<div class="flex gap-4 mt-auto pt-4 border-t border-white/5">
+<button class="flex-1 cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-primary text-white text-sm font-bold uppercase tracking-wider hover:bg-[#4d2df5] hover:shadow-glow transition-all">
+                                    Update Progress
+                                </button>
+<button class="cursor-pointer items-center justify-center rounded-lg h-12 w-12 border border-border-dark hover:border-white text-white bg-[#1e1b2e] transition-colors flex">
+<span class="material-symbols-outlined">info</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Quest Grid Header -->
+<div class="flex justify-between items-center mb-6 px-2">
+<h3 class="text-white text-xl font-bold uppercase tracking-wider flex items-center gap-2">
+<span class="w-1 h-6 bg-primary rounded-full"></span>
+                        Available Quests
+                    </h3>
+<div class="flex gap-2">
+<button class="text-xs font-bold text-[#a19db9] hover:text-white uppercase px-3 py-1 rounded border border-border-dark bg-card-dark hover:bg-border-dark transition-colors">Sort by Rank</button>
+<button class="text-xs font-bold text-[#a19db9] hover:text-white uppercase px-3 py-1 rounded border border-border-dark bg-card-dark hover:bg-border-dark transition-colors">Filter</button>
+</div>
+</div>
+<!-- Quest Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Quest Card 1 -->
+<div class="bg-card-dark rounded-xl border border-border-dark p-5 flex flex-col gap-4 relative overflow-hidden group hover:border-white/30 transition-all hover:-translate-y-1 hover:shadow-lg">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="text-[#a19db9] text-xs font-bold uppercase tracking-widest mb-1">Rank E</span>
+<h4 class="text-white text-lg font-bold leading-tight group-hover:text-primary transition-colors">Basic Maintenance</h4>
+</div>
+<div class="size-8 rounded-full bg-green-500/10 flex items-center justify-center text-green-500 border border-green-500/30">
+<span class="material-symbols-outlined text-sm">cleaning_services</span>
+</div>
+</div>
+<p class="text-[#a19db9] text-sm line-clamp-2">Clean the living area and organize the inventory. A clear space leads to a clear mind.</p>
+<!-- Rewards -->
+<div class="bg-[#131022] rounded-lg p-3 mt-auto border border-white/5">
+<p class="text-[10px] uppercase text-gray-500 font-bold mb-2">Rewards</p>
+<div class="flex gap-4">
+<div class="flex items-center gap-1.5" title="Experience">
+<span class="material-symbols-outlined text-xs text-blue-400">auto_graph</span>
+<span class="text-xs font-bold text-white">200 XP</span>
+</div>
+<div class="flex items-center gap-1.5" title="Gold">
+<span class="material-symbols-outlined text-xs text-system-gold">monetization_on</span>
+<span class="text-xs font-bold text-white">50 G</span>
+</div>
+</div>
+</div>
+<button class="w-full py-2 rounded border border-primary/30 text-primary hover:bg-primary hover:text-white text-xs font-bold uppercase tracking-wider transition-all mt-2">
+                             Accept Quest
+                         </button>
+</div>
+<!-- Quest Card 2 -->
+<div class="bg-card-dark rounded-xl border border-border-dark p-5 flex flex-col gap-4 relative overflow-hidden group hover:border-white/30 transition-all hover:-translate-y-1 hover:shadow-lg">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="text-[#a19db9] text-xs font-bold uppercase tracking-widest mb-1">Rank C</span>
+<h4 class="text-white text-lg font-bold leading-tight group-hover:text-primary transition-colors">Study Session</h4>
+</div>
+<div class="size-8 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 border border-blue-500/30">
+<span class="material-symbols-outlined text-sm">menu_book</span>
+</div>
+</div>
+<p class="text-[#a19db9] text-sm line-clamp-2">Read 50 pages of a technical book to increase Intelligence stats.</p>
+<!-- Rewards -->
+<div class="bg-[#131022] rounded-lg p-3 mt-auto border border-white/5">
+<p class="text-[10px] uppercase text-gray-500 font-bold mb-2">Rewards</p>
+<div class="flex gap-4">
+<div class="flex items-center gap-1.5" title="Experience">
+<span class="material-symbols-outlined text-xs text-blue-400">auto_graph</span>
+<span class="text-xs font-bold text-white">500 XP</span>
+</div>
+<div class="flex items-center gap-1.5" title="Stat Boost">
+<span class="material-symbols-outlined text-xs text-purple-400">psychology</span>
+<span class="text-xs font-bold text-white">+1 INT</span>
+</div>
+</div>
+</div>
+<button class="w-full py-2 rounded border border-primary/30 text-primary hover:bg-primary hover:text-white text-xs font-bold uppercase tracking-wider transition-all mt-2">
+                             Accept Quest
+                         </button>
+</div>
+<!-- Quest Card 3 (Special) -->
+<div class="bg-card-dark rounded-xl border border-primary/40 p-5 flex flex-col gap-4 relative overflow-hidden group hover:border-primary transition-all hover:-translate-y-1 hover:shadow-glow shadow-[0_0_15px_rgba(55,19,236,0.1)]">
+<!-- Special Badge -->
+<div class="absolute -right-6 top-4 bg-primary text-white text-[10px] font-bold py-1 px-8 rotate-45 z-10 shadow-lg">SPECIAL</div>
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="text-primary text-xs font-bold uppercase tracking-widest mb-1 drop-shadow-[0_0_2px_rgba(55,19,236,0.8)]">Rank A</span>
+<h4 class="text-white text-lg font-bold leading-tight group-hover:text-primary transition-colors">Deadline Raid</h4>
+</div>
+<div class="size-8 rounded-full bg-primary/20 flex items-center justify-center text-primary border border-primary/50 animate-pulse">
+<span class="material-symbols-outlined text-sm">swords</span>
+</div>
+</div>
+<p class="text-[#a19db9] text-sm line-clamp-2">Complete the Q3 Presentation Deck before midnight. High risk, high reward.</p>
+<!-- Rewards -->
+<div class="bg-[#131022] rounded-lg p-3 mt-auto border border-white/5 relative">
+<div class="absolute inset-0 border border-primary/20 rounded-lg pointer-events-none"></div>
+<p class="text-[10px] uppercase text-gray-500 font-bold mb-2">Rewards</p>
+<div class="flex gap-4 flex-wrap">
+<div class="flex items-center gap-1.5" title="Experience">
+<span class="material-symbols-outlined text-xs text-blue-400">auto_graph</span>
+<span class="text-xs font-bold text-white">2000 XP</span>
+</div>
+<div class="flex items-center gap-1.5" title="Gold">
+<span class="material-symbols-outlined text-xs text-system-gold">monetization_on</span>
+<span class="text-xs font-bold text-white">1000 G</span>
+</div>
+<div class="flex items-center gap-1.5" title="Item">
+<span class="material-symbols-outlined text-xs text-orange-400">deployed_code</span>
+<span class="text-xs font-bold text-white">Random Box</span>
+</div>
+</div>
+</div>
+<button class="w-full py-2 rounded bg-primary text-white hover:bg-[#4d2df5] text-xs font-bold uppercase tracking-wider transition-all mt-2 shadow-glow-sm">
+                             Enter Raid
+                         </button>
+</div>
+<!-- Quest Card 4 (Locked) -->
+<div class="bg-card-dark rounded-xl border border-dashed border-border-dark p-5 flex flex-col gap-4 relative overflow-hidden opacity-70 hover:opacity-100 transition-opacity">
+<div class="absolute inset-0 bg-[#000000]/60 flex items-center justify-center backdrop-blur-[1px] z-20">
+<div class="flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-gray-500 text-3xl">lock</span>
+<span class="text-gray-400 text-xs font-bold uppercase tracking-widest">Level 25 Required</span>
+</div>
+</div>
+<div class="flex justify-between items-start opacity-50">
+<div class="flex flex-col">
+<span class="text-[#a19db9] text-xs font-bold uppercase tracking-widest mb-1">Rank B</span>
+<h4 class="text-white text-lg font-bold leading-tight">Advanced Coding</h4>
+</div>
+</div>
+<p class="text-[#a19db9] text-sm line-clamp-2 opacity-50">Learn Rust programming language basics...</p>
+<div class="bg-[#131022] rounded-lg p-3 mt-auto border border-white/5 opacity-50">
+<div class="h-4 w-20 bg-gray-700 rounded mb-2"></div>
+<div class="h-3 w-32 bg-gray-800 rounded"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating System Message (Toast) -->
+<div class="fixed bottom-6 right-6 z-50 animate-bounce">
+<div class="bg-[#1e1b2e]/90 backdrop-blur border-l-4 border-system-gold p-4 rounded shadow-2xl flex items-center gap-4 max-w-sm">
+<div class="bg-system-gold/20 p-2 rounded-full text-system-gold">
+<span class="material-symbols-outlined">notifications_active</span>
+</div>
+<div>
+<h5 class="text-white text-sm font-bold uppercase">System Notification</h5>
+<p class="text-gray-400 text-xs">Daily Quest "Strength Training" will reset in 4 hours.</p>
+</div>
+</div>
+</body></html>

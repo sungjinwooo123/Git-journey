@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Player Dashboard - System</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3713ec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#131022",
+                        "surface-dark": "#1d1c27",
+                        "border-dark": "#2b2839",
+                        "text-secondary": "#a19db9"
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    boxShadow: {
+                        "glow": "0 0 15px rgba(55, 19, 236, 0.5)",
+                        "glow-text": "0 0 10px rgba(55, 19, 236, 0.8)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .system-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .system-scrollbar::-webkit-scrollbar-track {
+            background: #131022;
+        }
+        .system-scrollbar::-webkit-scrollbar-thumb {
+            background: #2b2839;
+            border-radius: 3px;
+        }
+        .system-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #3713ec;
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(55, 19, 236, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white overflow-x-hidden min-h-screen flex flex-col">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-border-dark bg-[#121118]/90 backdrop-blur-md px-6 py-3 w-full">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-size: 32px;">deployed_code</span>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-wider">SYSTEM</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-white hover:text-primary transition-colors text-sm font-medium leading-normal" href="dashboard.html">Dashboard</a>
+<a class="text-text-secondary hover:text-white transition-colors text-sm font-medium leading-normal" href="quests.html">Quests</a>
+<a class="text-text-secondary hover:text-white transition-colors text-sm font-medium leading-normal" href="inventory.html">Inventory</a>
+<a class="text-text-secondary hover:text-white transition-colors text-sm font-medium leading-normal" href="#">Shop</a>
+<a class="text-text-secondary hover:text-white transition-colors text-sm font-medium leading-normal" href="#">Skills</a>
+<a class="text-text-secondary hover:text-white transition-colors text-sm font-medium leading-normal" href="#">Guild</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="flex size-10 cursor-pointer items-center justify-center rounded-full bg-surface-dark border border-border-dark hover:border-primary text-white transition-all relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full animate-pulse"></span>
+</button>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 border-2 border-primary/50" data-alt="User avatar profile picture showing a stylized shadowed face" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBrq6mUSjlWDRGHks76rmW9x9brYDCZvd-YE1GzKj5cCh1aLH3gQdQB_MqHBEgyLmoI50cFaZcfuVdshhzg41_MhwQX17DAFjcteQh-izxr_lLgx42gCBO0GfxOk31fCpu-GL5wpdpnqpjVxrX_RjR5N0N5vdRXHX1M6wjQb-V0fX6Eh1FHwl5vD7z1iUKTblp5ek5ESK_9Ttxb0ALhlhpBQF2LNXkssgp0y00_H1gNZ0EL7fuhzFG9hgvsF2aEpvfii8Av47t-gg");'></div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col w-full max-w-[1400px] mx-auto p-4 md:p-6 lg:p-8 gap-6">
+<!-- Welcome Banner (Mobile friendly) -->
+<div class="w-full flex justify-between items-end border-b border-border-dark pb-4 mb-2">
+<div>
+<p class="text-text-secondary text-sm font-medium uppercase tracking-widest mb-1">Welcome back, Player</p>
+<h1 class="text-3xl md:text-4xl font-bold text-white tracking-tight">Jin-Woo</h1>
+</div>
+<div class="text-right hidden sm:block">
+<p class="text-primary font-bold text-lg">ONLINE</p>
+<p class="text-xs text-text-secondary">Server Time: 21:45:03</p>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full">
+<!-- Left Column: Player Status (3 cols) -->
+<div class="col-span-1 lg:col-span-3 flex flex-col gap-6">
+<!-- Profile Card -->
+<div class="bg-surface-dark rounded-xl p-6 border border-border-dark relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-40 transition-opacity">
+<span class="material-symbols-outlined text-6xl">badge</span>
+</div>
+<div class="relative z-10 flex flex-col gap-4">
+<div class="aspect-square w-full rounded-lg bg-center bg-cover border-2 border-border-dark shadow-lg mb-2" data-alt="Anime style character portrait looking determined" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCpsPtD8o6gqtWebp9vQFOt0PQxLNQkbOiE_trRIyZ00yyBWCp0daYMwTDAG-UZ2wzDCTDsrJ6QhhP-uvcAUL5PjCTX_IiibxTpMoZkqD_VERV6Jc3Bya0Bw5Z9z2aUBtQQ9TRsin2cQkF36ul7qezgXE8Ek7oYMVt1eMgckx-L9mUusfk7aWeoND6gBh2XWIybUn9CAb2acauS27QMrVOXazGrsN_GgMZ_grxRw49j47kt9eKh6WkAdSh74HLd8BZUw_fKIxHR6A");'></div>
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-text-secondary text-xs uppercase tracking-wider">Class</span>
+<span class="bg-primary/20 text-primary px-2 py-0.5 rounded text-xs font-bold border border-primary/30">NECROMANCER</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-text-secondary text-xs uppercase tracking-wider">Rank</span>
+<span class="text-white font-bold">S-Rank</span>
+</div>
+</div>
+<div class="h-px bg-border-dark w-full my-1"></div>
+<div>
+<span class="text-text-secondary text-xs uppercase tracking-wider block mb-1">Title</span>
+<span class="text-white font-bold text-lg">Wolf Slayer</span>
+</div>
+</div>
+</div>
+<!-- Vital Stats -->
+<div class="bg-surface-dark rounded-xl p-6 border border-border-dark flex flex-col gap-5">
+<h3 class="text-white font-bold text-lg border-b border-border-dark pb-2">Vitals</h3>
+<!-- HP -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-end">
+<span class="text-white text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-red-500 text-sm">favorite</span> HP
+                            </span>
+<span class="text-text-secondary text-xs">12,450 / 12,450</span>
+</div>
+<div class="h-2 w-full bg-[#0a0a0a] rounded-full overflow-hidden">
+<div class="h-full bg-red-600 w-full rounded-full shadow-[0_0_10px_rgba(220,38,38,0.5)]"></div>
+</div>
+</div>
+<!-- MP -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-end">
+<span class="text-white text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-500 text-sm">water_drop</span> MP
+                            </span>
+<span class="text-text-secondary text-xs">2,840 / 2,840</span>
+</div>
+<div class="h-2 w-full bg-[#0a0a0a] rounded-full overflow-hidden">
+<div class="h-full bg-blue-600 w-3/4 rounded-full shadow-[0_0_10px_rgba(37,99,235,0.5)]"></div>
+</div>
+</div>
+<!-- Fatigue -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-end">
+<span class="text-white text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-orange-500 text-sm">battery_alert</span> Fatigue
+                            </span>
+<span class="text-text-secondary text-xs">12%</span>
+</div>
+<div class="h-2 w-full bg-[#0a0a0a] rounded-full overflow-hidden">
+<div class="h-full bg-orange-500 w-[12%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Center Column: Main Stats & Level (6 cols) -->
+<div class="col-span-1 lg:col-span-6 flex flex-col gap-6">
+<!-- Level Display -->
+<div class="relative bg-surface-dark rounded-xl p-8 border border-border-dark flex flex-col items-center justify-center overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none"></div>
+<span class="text-text-secondary text-sm uppercase tracking-[0.2em] mb-2 relative z-10">Current Level</span>
+<h2 class="text-8xl md:text-9xl font-bold text-white tracking-tighter text-glow relative z-10 leading-none">64</h2>
+<div class="w-full max-w-md mt-8 relative z-10">
+<div class="flex justify-between text-xs text-text-secondary mb-2 font-mono">
+<span>EXP</span>
+<span>45,200 / 60,000</span>
+</div>
+<div class="h-4 w-full bg-[#0a0a0a] rounded-sm overflow-hidden border border-border-dark">
+<div class="h-full bg-primary w-[75%] shadow-glow relative">
+<div class="absolute top-0 right-0 h-full w-px bg-white/50 shadow-[0_0_5px_white]"></div>
+</div>
+</div>
+<div class="text-center mt-2 text-xs text-primary font-bold tracking-widest">75.33% TO NEXT LEVEL</div>
+</div>
+</div>
+<!-- Attributes Grid -->
+<div class="bg-surface-dark rounded-xl border border-border-dark flex flex-col flex-1">
+<div class="p-6 border-b border-border-dark flex justify-between items-center bg-[#181621]">
+<h3 class="text-white font-bold text-xl">Core Attributes</h3>
+<div class="bg-primary/20 border border-primary/50 px-4 py-1 rounded text-sm text-white font-mono flex items-center gap-2 shadow-glow">
+<span class="material-symbols-outlined text-sm">stars</span>
+<span>Points Available: <span class="text-primary font-bold text-base">3</span></span>
+</div>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Strength -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-[#121118] border border-border-dark hover:border-primary/50 transition-colors group">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded bg-[#2a2736] flex items-center justify-center text-red-400 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">fitness_center</span>
+</div>
+<div>
+<p class="text-text-secondary text-xs uppercase font-bold">Strength</p>
+<p class="text-white font-mono text-xl font-bold">142</p>
+</div>
+</div>
+<button class="size-8 rounded bg-primary text-white flex items-center justify-center hover:bg-primary/80 active:scale-95 transition-all shadow-glow">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+<!-- Agility -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-[#121118] border border-border-dark hover:border-primary/50 transition-colors group">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded bg-[#2a2736] flex items-center justify-center text-green-400 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">directions_run</span>
+</div>
+<div>
+<p class="text-text-secondary text-xs uppercase font-bold">Agility</p>
+<p class="text-white font-mono text-xl font-bold">128</p>
+</div>
+</div>
+<button class="size-8 rounded bg-primary text-white flex items-center justify-center hover:bg-primary/80 active:scale-95 transition-all shadow-glow">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+<!-- Sense -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-[#121118] border border-border-dark hover:border-primary/50 transition-colors group">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded bg-[#2a2736] flex items-center justify-center text-purple-400 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">visibility</span>
+</div>
+<div>
+<p class="text-text-secondary text-xs uppercase font-bold">Sense</p>
+<p class="text-white font-mono text-xl font-bold">105</p>
+</div>
+</div>
+<button class="size-8 rounded bg-primary text-white flex items-center justify-center hover:bg-primary/80 active:scale-95 transition-all shadow-glow">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+<!-- Vitality -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-[#121118] border border-border-dark hover:border-primary/50 transition-colors group">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded bg-[#2a2736] flex items-center justify-center text-yellow-400 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">shield</span>
+</div>
+<div>
+<p class="text-text-secondary text-xs uppercase font-bold">Vitality</p>
+<p class="text-white font-mono text-xl font-bold">115</p>
+</div>
+</div>
+<button class="size-8 rounded bg-primary text-white flex items-center justify-center hover:bg-primary/80 active:scale-95 transition-all shadow-glow">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+<!-- Intelligence -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-[#121118] border border-border-dark hover:border-primary/50 transition-colors group">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded bg-[#2a2736] flex items-center justify-center text-blue-400 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<div>
+<p class="text-text-secondary text-xs uppercase font-bold">Intelligence</p>
+<p class="text-white font-mono text-xl font-bold">98</p>
+</div>
+</div>
+<button class="size-8 rounded bg-primary text-white flex items-center justify-center hover:bg-primary/80 active:scale-95 transition-all shadow-glow">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Quests & Log (3 cols) -->
+<div class="col-span-1 lg:col-span-3 flex flex-col gap-6">
+<!-- Daily Quest Card -->
+<div class="bg-surface-dark rounded-xl border border-border-dark flex flex-col relative overflow-hidden">
+<div class="absolute top-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-70"></div>
+<div class="p-4 border-b border-border-dark flex justify-between items-center">
+<h3 class="text-white font-bold text-lg">Daily Quest</h3>
+<span class="px-2 py-0.5 rounded bg-red-500/10 text-red-400 text-xs font-bold border border-red-500/20 animate-pulse">ACTIVE</span>
+</div>
+<div class="p-4 flex flex-col gap-4">
+<div class="flex items-center gap-3 mb-2">
+<div class="size-12 bg-red-500/10 rounded-lg flex items-center justify-center border border-red-500/20">
+<span class="material-symbols-outlined text-red-500 text-2xl">fitness_center</span>
+</div>
+<div>
+<h4 class="text-white font-bold leading-tight">Strength Training</h4>
+<p class="text-text-secondary text-xs">Failure Penalty: Survival Zone</p>
+</div>
+</div>
+<!-- Quest Tasks -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between p-2 rounded bg-[#121118] border border-border-dark">
+<div class="flex items-center gap-2">
+<div class="size-4 rounded-sm border border-primary bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-white font-bold">check</span>
+</div>
+<span class="text-sm text-gray-300">Push-ups</span>
+</div>
+<span class="text-xs text-primary font-mono">100/100</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-[#121118] border border-border-dark">
+<div class="flex items-center gap-2">
+<div class="size-4 rounded-sm border border-primary bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-white font-bold">check</span>
+</div>
+<span class="text-sm text-gray-300">Sit-ups</span>
+</div>
+<span class="text-xs text-primary font-mono">100/100</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-[#121118] border border-border-dark">
+<div class="flex items-center gap-2">
+<div class="size-4 rounded-sm border border-primary bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-white font-bold">check</span>
+</div>
+<span class="text-sm text-gray-300">Squats</span>
+</div>
+<span class="text-xs text-primary font-mono">100/100</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-[#121118] border border-gray-600">
+<div class="flex items-center gap-2">
+<div class="size-4 rounded-sm border border-gray-500 flex items-center justify-center">
+</div>
+<span class="text-sm text-white">10km Run</span>
+</div>
+<span class="text-xs text-white font-mono">8.5/10</span>
+</div>
+</div>
+<button class="w-full mt-2 py-2 rounded bg-primary/10 text-primary border border-primary hover:bg-primary hover:text-white transition-all text-sm font-bold uppercase tracking-wide disabled:opacity-50 disabled:cursor-not-allowed">
+                            Submit Quest
+                        </button>
+</div>
+</div>
+<!-- Recent Drops/Inventory Mini -->
+<div class="bg-surface-dark rounded-xl border border-border-dark p-4 flex flex-col flex-1">
+<h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-yellow-500">backpack</span> Inventory
+                     </h3>
+<div class="grid grid-cols-4 gap-2">
+<!-- Items -->
+<div class="aspect-square rounded bg-[#121118] border border-border-dark hover:border-primary cursor-pointer flex items-center justify-center relative group" title="Dungeon Key">
+<img alt="Hidden spacer" class="opacity-0 absolute inset-0 w-full h-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCveYEw87vkXfrDq6MijnC1RNrqxGW_6bjlHxGnSgpRSifCJ5qcfX5R9iclxm-Zg8XA8D78McGJF8mmLDplchhUmRBl_t9Yf2CPbDHBk2eZ-BKBlIHMffMnC_JcmlzfJAwX-4NfToeRRPeqME1g6joN0Hv2tmA1wrRZcUT5XuV-ZCDP_7YB1R_YVu6i7Ou8EzCVYeqylSRlDCQcmICj9g5mVur6U0oU5rnXAGIojrAZXoiMVPuKI2xPYB438458PC3bXG1RpeTpWw"/>
+<span class="material-symbols-outlined text-purple-400 group-hover:scale-110 transition-transform">vpn_key</span>
+<span class="absolute bottom-1 right-1 text-[10px] text-text-secondary font-mono">1</span>
+</div>
+<div class="aspect-square rounded bg-[#121118] border border-border-dark hover:border-primary cursor-pointer flex items-center justify-center relative group" title="Mana Potion">
+<span class="material-symbols-outlined text-blue-400 group-hover:scale-110 transition-transform">science</span>
+<span class="absolute bottom-1 right-1 text-[10px] text-text-secondary font-mono">5</span>
+</div>
+<div class="aspect-square rounded bg-[#121118] border border-border-dark hover:border-primary cursor-pointer flex items-center justify-center relative group" title="Iron Sword">
+<span class="material-symbols-outlined text-gray-400 group-hover:scale-110 transition-transform">swords</span>
+</div>
+<div class="aspect-square rounded bg-[#121118] border border-border-dark hover:border-primary cursor-pointer flex items-center justify-center relative group" title="Empty Slot">
+</div>
+<div class="aspect-square rounded bg-[#121118] border border-border-dark hover:border-primary cursor-pointer flex items-center justify-center relative group" title="Empty Slot">
+</div>
+<div class="aspect-square rounded bg-[#121118] border border-border-dark hover:border-primary cursor-pointer flex items-center justify-center relative group" title="Empty Slot">
+</div>
+<div class="aspect-square rounded bg-[#121118] border border-border-dark hover:border-primary cursor-pointer flex items-center justify-center relative group" title="Empty Slot">
+</div>
+<div class="aspect-square rounded bg-[#121118] border border-border-dark hover:border-primary cursor-pointer flex items-center justify-center relative group" title="Empty Slot">
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom: System Log -->
+<div class="w-full bg-[#0a0a0a] rounded-lg border border-border-dark p-4 mt-auto font-mono text-xs md:text-sm h-48 overflow-y-auto system-scrollbar shadow-inner relative">
+<div class="absolute top-2 right-4 text-xs text-text-secondary uppercase tracking-widest opacity-50 select-none">System Log</div>
+<div class="flex flex-col gap-1.5 pt-2">
+<p class="text-text-secondary"><span class="text-primary font-bold">[SYSTEM]</span> Welcome back, Player.</p>
+<p class="text-text-secondary"><span class="text-primary font-bold">[SYSTEM]</span> Daily Quest "Strength Training" has reset.</p>
+<p class="text-text-secondary"><span class="text-primary font-bold">[SYSTEM]</span> Fatigue recovered by 20% due to "Good Night's Sleep".</p>
+<p class="text-text-secondary"><span class="text-yellow-500 font-bold">[ALERT]</span> A nearby Dungeon Break has been detected.</p>
+<p class="text-white"><span class="text-green-500 font-bold">[SUCCESS]</span> You have completed "Push-ups 100/100".</p>
+<p class="text-white"><span class="text-green-500 font-bold">[SUCCESS]</span> You have completed "Squats 100/100".</p>
+<p class="text-text-secondary opacity-50"><span class="text-gray-500 font-bold">[INFO]</span> Connecting to hunter database...</p>
+<div class="flex items-center gap-2 animate-pulse text-primary mt-2">
+<span class="material-symbols-outlined text-sm">terminal</span>
+<span>Awaiting input...</span>
+</div>
+</div>
+</div>
+</main>
+</body></html>
